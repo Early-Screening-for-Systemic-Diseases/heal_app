@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/category_card.dart';
-import '../widgets/gradient_button.dart';
 import '../widgets/info_card.dart';
+import 'upload_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,62 +15,124 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Welcome Back!', style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold)),
+            Text(
+              'Welcome Back!',
+              style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 4.h),
-            Text('Monitor your health through AI analysis',
-                style: TextStyle(color: Colors.grey, fontSize: 14.sp)),
+            Text(
+              'Monitor your health through AI analysis',
+              style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+            ),
             SizedBox(height: 20.h),
+
+            // Info Card instead of gradient button
             Container(
-              padding: EdgeInsets.all(16.w),
+              padding: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(colors: [Colors.blue, Colors.purple]),
+                gradient: const LinearGradient(
+                  colors: [Colors.blue, Colors.purple],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
                 borderRadius: BorderRadius.circular(20.r),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Text('Start New Analysis',
-                      style: TextStyle(
-                          fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.white)),
-                  SizedBox(height: 4.h),
-                  Text('Upload photos and get instant health insights',
-                      style: TextStyle(color: Colors.white70, fontSize: 14.sp)),
-                  SizedBox(height: 10.h),
-                  GradientButton(text: 'Begin Scan', onPressed: () {}),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'AI Health Analysis',
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        Text(
+                          'Select a category below to start your health scan',
+                          style: TextStyle(color: Colors.white70, fontSize: 14.sp),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.health_and_safety, size: 50.sp, color: Colors.white70),
                 ],
               ),
             ),
-            SizedBox(height: 20.h),
-            Text('Detection Categories',
-                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
-            SizedBox(height: 8.h),
+
+            SizedBox(height: 30.h),
+            Text(
+              'Detection Categories',
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 12.h),
+
+            // Two category cards
             GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              childAspectRatio: 1.3,
-              crossAxisSpacing: 8.w,
-              mainAxisSpacing: 8.h,
-              children: const [
-                CategoryCard(icon: '💊', name: 'Vitamin Deficiency', color: Colors.greenAccent),
-                CategoryCard(icon: '🩸', name: 'Anemia', color: Colors.redAccent),
-                CategoryCard(icon: '🔬', name: 'Diabetes', color: Colors.blueAccent),
-                CategoryCard(icon: '🦷', name: 'Oral Cancer', color: Colors.purpleAccent),
+              childAspectRatio: 1.2,
+              crossAxisSpacing: 12.w,
+              mainAxisSpacing: 12.h,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UploadScreen(
+                          category: 'Anemia',
+                          icon: '🩸',
+                          color: Colors.redAccent,
+                          sampleImagePath: 'assets/images/eye.webp',
+                        ),
+                      ),
+                    );
+                  },
+                  child: const CategoryCard(icon: '🩸', name: 'Anemia', color: Colors.redAccent),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UploadScreen(
+                          category: 'Diabetes',
+                          icon: '🔬',
+                          color: Colors.blueAccent,
+                          sampleImagePath: 'assets/images/tounge.png',
+                        ),
+                      ),
+                    );
+                  },
+                  child: const CategoryCard(icon: '🔬', name: 'Diabetes', color: Colors.blueAccent),
+                ),
               ],
             ),
-            SizedBox(height: 20.h),
-            Text('Recent Scans', style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
-            SizedBox(height: 8.h),
+
+            SizedBox(height: 30.h),
+            Text(
+              'Recent Scans',
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 12.h),
             const InfoCard(
-                title: 'Full Health Check',
-                date: '2 days ago',
-                status: 'Normal',
-                color: Colors.green),
+              title: 'Anemia Check',
+              date: '2 days ago',
+              status: 'Normal',
+              color: Colors.green,
+            ),
             const InfoCard(
-                title: 'Vitamin Analysis',
-                date: '5 days ago',
-                status: 'Review',
-                color: Colors.amber),
+              title: 'Diabetes Analysis',
+              date: '5 days ago',
+              status: 'Review',
+              color: Colors.amber,
+            ),
           ],
         ),
       ),

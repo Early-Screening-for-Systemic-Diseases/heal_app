@@ -19,17 +19,23 @@ class ProfileScreen extends StatelessWidget {
               child: Icon(Icons.person, size: 50.sp, color: Colors.blue),
             ),
             SizedBox(height: 10.h),
-            Text('Zeyad Ahmed', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
+            Text(
+              'Hassan Sherif',
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 4.h),
-            Text('Flutter Developer', style: TextStyle(color: Colors.grey, fontSize: 14.sp)),
+            Text(
+              'Computer Science',
+              style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+            ),
             SizedBox(height: 20.h),
             ListTile(
               leading: Icon(Icons.email, size: 22.sp),
-              title: Text('zeyad@example.com', style: TextStyle(fontSize: 15.sp)),
+              title: Text('hassan@example.com', style: TextStyle(fontSize: 15.sp)),
             ),
             ListTile(
               leading: Icon(Icons.phone, size: 22.sp),
-              title: Text('+971 50 123 4567', style: TextStyle(fontSize: 15.sp)),
+              title: Text('+20100455644', style: TextStyle(fontSize: 15.sp)),
             ),
             ListTile(
               leading: Icon(Icons.settings, size: 22.sp),
