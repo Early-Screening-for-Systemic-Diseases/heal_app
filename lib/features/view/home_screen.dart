@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/category_card.dart';
 import '../widgets/info_card.dart';
+import 'survey_screen.dart';
 import 'upload_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -100,14 +101,7 @@ class HomeScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const UploadScreen(
-                          category: 'Diabetes',
-                          icon: '🔬',
-                          color: Colors.blueAccent,
-                          sampleImagePath: 'assets/images/tounge.png',
-                        ),
-                      ),
+                      MaterialPageRoute(builder: (context) => const HealthSurveyScreen()),
                     );
                   },
                   child: const CategoryCard(icon: '🔬', name: 'Diabetes', color: Colors.blueAccent),

@@ -30,12 +30,18 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     gh.singleton<_i361.Dio>(
+      () => registerModule.predictDio,
+      instanceName: 'PredictDio',
+    );
+    gh.singleton<_i361.Dio>(
       () => registerModule.mainDio,
       instanceName: 'MainDio',
     );
     gh.lazySingleton<_i103.PredictionRemoteDataSource>(
-      () =>
-          _i747.PredictionApiDataSource(gh<_i361.Dio>(instanceName: 'MainDio')),
+      () => _i747.PredictionApiDataSource(
+        gh<_i361.Dio>(instanceName: 'MainDio'),
+        gh<_i361.Dio>(instanceName: 'PredictDio'),
+      ),
     );
     gh.lazySingleton<_i672.PredictionRepository>(
       () => _i672.PredictionRepository(gh<_i103.PredictionRemoteDataSource>()),

@@ -6,13 +6,11 @@ import '../../shared/constants/constants.dart';
 abstract class RegisterModule {
   @singleton
   @Named('MainDio')
-  Dio get mainDio => Dio(
-    BaseOptions(
-      baseUrl: Constants().devBaseUrl,
-      receiveDataWhenStatusError: true,
-      connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 30),
-      sendTimeout: const Duration(seconds: 30),
-    ),
-  );
+  Dio get mainDio =>
+      Dio(BaseOptions(baseUrl: Constants().devBaseUrl, receiveDataWhenStatusError: true));
+
+  @singleton
+  @Named('PredictDio')
+  Dio get predictDio =>
+      Dio(BaseOptions(baseUrl: Constants().predictBaseUrl, receiveDataWhenStatusError: true));
 }
