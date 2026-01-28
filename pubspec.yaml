@@ -29,21 +29,24 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.8
+  dartz: ^0.10.1
+  dio: ^5.9.0
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.1
+  get_it: ^9.2.0
   image_picker: ^1.2.0
+  injectable: ^2.7.1+4
 
 dev_dependencies:
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
+  build_runner: ^2.10.5
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
+  injectable_generator: ^2.12.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

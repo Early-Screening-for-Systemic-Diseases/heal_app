@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'core/app_bloc_observer.dart';
+import 'core/service/service_locator.dart';
 import 'features/view/medical_nav_bar.dart';
+import 'features/viewmodel/prediction_cubit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]).then((value) => runApp(const HealAi()));
+  Bloc.observer = AppBlocObserver();
+  setupLocator();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+    (value) => runApp(
+      MultiBlocProvider(
+        providers: [BlocProvider<PredictionCubit>(create: (context) => getIt<PredictionCubit>())],
+        child: const HealAi(),
+      ),
+    ),
+  );
 }
 
 class HealAi extends StatelessWidget {
