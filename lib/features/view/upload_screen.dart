@@ -102,7 +102,7 @@ class _UploadScreenState extends State<UploadScreen> {
       body: BlocListener<PredictionCubit, PredictionState>(
         listener: (context, state) {
           if (state is PredictionSuccess) {
-            _showPredictionDialog(context, state.prediction);
+            _showImagePredictionDialog(context, state.prediction);
           } else if (state is PredictionError) {
             ScaffoldMessenger.of(
               context,
@@ -325,7 +325,7 @@ class _UploadScreenState extends State<UploadScreen> {
     );
   }
 
-  void _showPredictionDialog(BuildContext context, String prediction) {
+  void _showImagePredictionDialog(BuildContext context, String prediction) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
