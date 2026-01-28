@@ -68,9 +68,9 @@ class _HealthSurveyScreenState extends State<HealthSurveyScreen> {
       value: _predictionCubit,
       child: BlocListener<PredictionCubit, PredictionState>(
         listener: (context, state) {
-          if (state is PredictionSuccess) {
+          if (state is PredictionSuccess && ModalRoute.of(context)?.isCurrent == true) {
             _showPredictionDialog(state.prediction);
-          } else if (state is PredictionError) {
+          } else if (state is PredictionError && ModalRoute.of(context)?.isCurrent == true) {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text('Error: ${state.message}')));
