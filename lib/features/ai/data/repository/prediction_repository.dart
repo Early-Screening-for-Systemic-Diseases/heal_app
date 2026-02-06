@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import '../../../core/error/exception.dart';
-import '../../../core/error/faliure.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/error/faliure.dart';
 import '../data_source/prediction_remote_data_source.dart';
 import '../model/prediction_response.dart';
 import '../model/health_data_model.dart';

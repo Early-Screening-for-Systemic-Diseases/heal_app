@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import '../../../core/api/api_endpoints.dart';
-import '../../../core/error/api_error_handler.dart';
+import '../../../../core/api/api_endpoints.dart';
+import '../../../../core/error/api_error_handler.dart';
 import '../model/prediction_response.dart';
 import '../model/health_data_model.dart';
 import 'prediction_remote_data_source.dart';

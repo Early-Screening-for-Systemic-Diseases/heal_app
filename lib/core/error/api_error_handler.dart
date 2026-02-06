@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'exception.dart';
 
 class ApiErrorHandler {
-  static VektuAppExceptions handleDioError(DioException e) {
+  static HealAppExceptions handleDioError(DioException e) {
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
         throw const RemoteException('Connection timeout. Please check your internet.');

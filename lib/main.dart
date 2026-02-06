@@ -1,21 +1,40 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'core/app_bloc_observer.dart';
 import 'core/service/service_locator.dart';
-import 'features/view/medical_nav_bar.dart';
-import 'features/viewmodel/prediction_cubit.dart';
+import 'features/ai/view/medical_nav_bar.dart';
+import 'features/ai/viewmodel/prediction_cubit.dart';
+import 'features/auth/presentation/cubit/auth_hydrated_cubit.dart';
+import 'features/auth/presentation/cubit/auth_state.dart';
+import 'features/auth/presentation/view/login.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final directory = await getApplicationDocumentsDirectory();
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: kIsWeb
+        ? HydratedStorageDirectory.web
+        : HydratedStorageDirectory(directory.path),
+  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = AppBlocObserver();
   setupLocator();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (value) => runApp(
       MultiBlocProvider(
-        providers: [BlocProvider<PredictionCubit>(create: (context) => getIt<PredictionCubit>())],
+        providers: [
+          BlocProvider<PredictionCubit>(create: (context) => getIt<PredictionCubit>()),
+          BlocProvider<AuthCubit>(create: (context) => getIt<AuthCubit>()),
+        ],
         child: const HealAi(),
       ),
     ),
@@ -25,7 +44,6 @@ void main() {
 class HealAi extends StatelessWidget {
   const HealAi({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -40,7 +58,11 @@ class HealAi extends StatelessWidget {
             colorSchemeSeed: Colors.blue,
             scaffoldBackgroundColor: const Color(0xFFF8FAFC),
           ),
-          home: const MedicalNavBar(),
+          home: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return state is Authenticated ? const MedicalNavBar() : const Login();
+            },
+          ),
         );
       },
     );

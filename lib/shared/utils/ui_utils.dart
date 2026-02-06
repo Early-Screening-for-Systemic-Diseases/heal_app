@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../Widgets/loading_indicator.dart';
 
@@ -24,4 +25,6 @@ class UIUtils {
   );
 
   static void hideLoading(BuildContext context) => Navigator.of(context).pop();
+  static void showMessage(String message) =>
+      Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
 }

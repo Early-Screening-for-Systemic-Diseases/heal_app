@@ -8,4 +8,5 @@ class ColorManager {
   static const Color grey2 = Color(0xFFD1D5DB);
   static const Color blue = Color(0xFF3366FF);
   static const Color transparent = Color(0x00000000);
+  static const Color red = Color(0xFFB3261E);
 }

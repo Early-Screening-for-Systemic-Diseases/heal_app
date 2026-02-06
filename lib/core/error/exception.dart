@@ -1,12 +1,12 @@
-class VektuAppExceptions implements Exception {
+class HealAppExceptions implements Exception {
   final String message;
-  const VektuAppExceptions(this.message);
+  const HealAppExceptions(this.message);
 }
 
-class RemoteException extends VektuAppExceptions {
+class RemoteException extends HealAppExceptions {
   const RemoteException(super.message);
 }
 
-class LocalException extends VektuAppExceptions {
+class LocalException extends HealAppExceptions {
   const LocalException(super.message);
 }
