@@ -4,6 +4,7 @@ import '../widgets/category_card.dart';
 import '../widgets/info_card.dart';
 import 'survey_screen.dart';
 import 'upload_screen.dart';
+import 'anemia_survey_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -83,15 +84,40 @@ class HomeScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const UploadScreen(
-                          category: 'Anemia',
-                          icon: '🩸',
-                          color: Colors.redAccent,
-                          sampleImagePath: 'assets/images/eye.webp',
-                        ),
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Anemia Detection'),
+                        content: const Text('Choose your preferred method:'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const UploadScreen(
+                                    category: 'Anemia',
+                                    icon: '🩸',
+                                    color: Colors.redAccent,
+                                    sampleImagePath: 'assets/images/eye.webp',
+                                  ),
+                                ),
+                              );
+                            },
+                            child: const Text('Quick'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const AnemiaSurveyScreen()),
+                              );
+                            },
+                            child: const Text('Precise'),
+                          ),
+                        ],
                       ),
                     );
                   },

@@ -54,6 +54,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i59.FirebaseAuth>(() => registerModule.firebaseAuth);
     gh.lazySingleton<_i974.FirebaseFirestore>(() => registerModule.firestore);
     gh.singleton<_i361.Dio>(
+      () => registerModule.anemiaSurveyDio,
+      instanceName: 'AnemiaSurveyDio',
+    );
+    gh.singleton<_i361.Dio>(
       () => registerModule.predictDio,
       instanceName: 'PredictDio',
     );
@@ -67,17 +71,27 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i974.FirebaseFirestore>(),
       ),
     );
+    gh.singleton<_i361.Dio>(
+      () => registerModule.anemiaDio,
+      instanceName: 'AnemiaDio',
+    );
     gh.lazySingleton<_i383.PredictionRemoteDataSource>(
       () => _i732.PredictionApiDataSource(
         gh<_i361.Dio>(instanceName: 'MainDio'),
         gh<_i361.Dio>(instanceName: 'PredictDio'),
+        gh<_i361.Dio>(instanceName: 'AnemiaDio'),
+        gh<_i361.Dio>(instanceName: 'AnemiaSurveyDio'),
       ),
     );
     gh.lazySingleton<_i977.AuthRepository>(
       () => _i319.AuthRepositoryImpl(gh<_i911.FirebaseAuthDataSource>()),
     );
     gh.lazySingleton<_i366.PredictionRepository>(
-      () => _i366.PredictionRepository(gh<_i383.PredictionRemoteDataSource>()),
+      () => _i366.PredictionRepository(
+        gh<_i383.PredictionRemoteDataSource>(),
+        gh<_i911.FirebaseAuthDataSource>(),
+        gh<_i59.FirebaseAuth>(),
+      ),
     );
     gh.lazySingleton<_i457.FacebookSignInUseCase>(
       () => _i457.FacebookSignInUseCase(gh<_i977.AuthRepository>()),

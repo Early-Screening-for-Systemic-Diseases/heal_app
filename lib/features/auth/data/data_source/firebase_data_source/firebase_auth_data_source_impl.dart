@@ -172,4 +172,38 @@ class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource {
       throw Exception(e.toString());
     }
   }
+
+  @override
+  Future<void> addDiabetesRecord(String userId, DiabetesRecord record) async {
+    await getUserCollection().doc(userId).update({
+      'diabetesRecords': FieldValue.arrayUnion([record.toJson()])
+    });
+  }
+
+  @override
+  Future<void> addAnemiaRecord(String userId, AnemiaRecord record) async {
+    await getUserCollection().doc(userId).update({
+      'anemiaRecords': FieldValue.arrayUnion([record.toJson()])
+    });
+  }
+
+  @override
+  Future<void> addDiabetesSurvey(String userId, DiabetesSurvey survey) async {
+    await getUserCollection().doc(userId).update({
+      'diabetesSurveys': FieldValue.arrayUnion([survey.toJson()])
+    });
+  }
+
+  @override
+  Future<void> addAnemiaSurvey(String userId, AnemiaSurvey survey) async {
+    await getUserCollection().doc(userId).update({
+      'anemiaSurveys': FieldValue.arrayUnion([survey.toJson()])
+    });
+  }
+
+  @override
+  Future<UserModel?> getUserData(String userId) async {
+    final doc = await getUserCollection().doc(userId).get();
+    return doc.data();
+  }
 }

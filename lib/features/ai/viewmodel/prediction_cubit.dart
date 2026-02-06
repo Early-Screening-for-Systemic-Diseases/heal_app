@@ -11,16 +11,12 @@ class PredictionCubit extends Cubit<PredictionState> {
 
   PredictionCubit(this._repository) : super(PredictionInitial());
 
-  Future<void> predictImage(File imageFile) async {
+  Future<void> predictImage(File imageFile, String imageUrl) async {
     emit(PredictionLoading());
-    final response = await _repository.predictImage(imageFile);
+    final response = await _repository.predictImage(imageFile, imageUrl);
     response.fold(
-      (failure) {
-        emit(PredictionError(failure.message));
-      },
-      (predictionResponse) {
-        emit(PredictionSuccess(predictionResponse.prediction));
-      },
+      (failure) => emit(PredictionError(failure.message)),
+      (predictionResponse) => emit(PredictionSuccess(predictionResponse.prediction)),
     );
   }
 
@@ -28,12 +24,26 @@ class PredictionCubit extends Cubit<PredictionState> {
     emit(PredictionLoading());
     final response = await _repository.predictHealthData(healthData);
     response.fold(
-      (failure) {
-        emit(PredictionError(failure.message));
-      },
-      (predictionResponse) {
-        emit(PredictionSuccess(predictionResponse.prediction));
-      },
+      (failure) => emit(PredictionError(failure.message)),
+      (predictionResponse) => emit(PredictionSuccess(predictionResponse.prediction)),
+    );
+  }
+
+  Future<void> predictAnemiaImage(File imageFile, String imageUrl) async {
+    emit(PredictionLoading());
+    final response = await _repository.predictAnemiaImage(imageFile, imageUrl);
+    response.fold(
+      (failure) => emit(PredictionError(failure.message)),
+      (predictionResponse) => emit(PredictionSuccess(predictionResponse.prediction)),
+    );
+  }
+
+  Future<void> predictAnemiaSurvey(Map<String, dynamic> surveyData) async {
+    emit(PredictionLoading());
+    final response = await _repository.predictAnemiaSurvey(surveyData);
+    response.fold(
+      (failure) => emit(PredictionError(failure.message)),
+      (predictionResponse) => emit(PredictionSuccess(predictionResponse.prediction)),
     );
   }
 }

@@ -11,8 +11,15 @@ import 'prediction_remote_data_source.dart';
 class PredictionApiDataSource implements PredictionRemoteDataSource {
   final Dio _mainDio;
   final Dio _predictDio;
+  final Dio _anemiaDio;
+  final Dio _anemiaSurveyDio;
 
-  PredictionApiDataSource(@Named('MainDio') this._mainDio, @Named('PredictDio') this._predictDio);
+  PredictionApiDataSource(
+    @Named('MainDio') this._mainDio,
+    @Named('PredictDio') this._predictDio,
+    @Named('AnemiaDio') this._anemiaDio,
+    @Named('AnemiaSurveyDio') this._anemiaSurveyDio,
+  );
 
   @override
   Future<PredictionResponse> predictImage(File imageFile) async {
@@ -37,6 +44,36 @@ class PredictionApiDataSource implements PredictionRemoteDataSource {
         data: healthData.toJson(),
       );
       print(response.data);
+      return PredictionResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      throw ApiErrorHandler.handleDioError(e);
+    }
+  }
+
+  @override
+  Future<PredictionResponse> predictAnemiaImage(File imageFile) async {
+    try {
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(imageFile.path, filename: 'image.jpg'),
+      });
+
+      final response = await _anemiaDio.post(ApiEndpoints.anemiaPredict, data: formData);
+      print('Anemia API Response: ${response.data}');
+
+      return PredictionResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      throw ApiErrorHandler.handleDioError(e);
+    }
+  }
+
+  @override
+  Future<PredictionResponse> predictAnemiaSurvey(Map<String, dynamic> surveyData) async {
+    try {
+      final response = await _anemiaSurveyDio.post(
+        ApiEndpoints.anemiaSurveyPredict,
+        data: surveyData,
+      );
+      print('Anemia Survey Response: ${response.data}');
       return PredictionResponse.fromJson(response.data);
     } on DioException catch (e) {
       throw ApiErrorHandler.handleDioError(e);

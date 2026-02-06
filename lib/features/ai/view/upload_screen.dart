@@ -74,8 +74,12 @@ class _UploadScreenState extends State<UploadScreen> {
       return;
     }
 
+    final imageUrl = _selectedImage!.path;
+
     if (widget.category == 'Diabetes') {
-      context.read<PredictionCubit>().predictImage(_selectedImage!);
+      context.read<PredictionCubit>().predictImage(_selectedImage!, imageUrl);
+    } else if (widget.category == 'Anemia') {
+      context.read<PredictionCubit>().predictAnemiaImage(_selectedImage!, imageUrl);
     } else {
       ScaffoldMessenger.of(
         context,
