@@ -71,14 +71,6 @@ class LoginForm extends StatelessWidget {
                 textInputFormatter: LengthLimitingTextInputFormatter(16),
                 validator: Validator.isValidPassword,
               ),
-              SizedBox(height: 20.h),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'Forgot Password?',
-                  style: getRegularStyle(color: ColorManager.blue).copyWith(fontSize: FontSize.s14),
-                ),
-              ),
               SizedBox(height: 40.h),
               AuthToggleMessage(
                 label1: 'Don’t have an account?',

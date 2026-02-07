@@ -57,6 +57,15 @@ class HealAi extends StatelessWidget {
           theme: ThemeData(
             colorSchemeSeed: Colors.blue,
             scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+            appBarTheme: const AppBarTheme(
+              centerTitle: true,
+              titleTextStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+              iconTheme: IconThemeData(color: Colors.white),
+            ),
           ),
           home: BlocBuilder<AuthCubit, AuthState>(
             builder: (context, state) {

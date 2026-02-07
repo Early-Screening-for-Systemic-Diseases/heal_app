@@ -50,10 +50,7 @@ class RegisterForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(height: 10.h),
-          const AuthHeader(
-            label1: 'Sign Up Now',
-            label2: 'Welcome To Scrap',
-          ),
+          const AuthHeader(label1: 'Sign Up Now', label2: 'Welcome'),
           SizedBox(height: 30.h),
           CustomTextField(
             controller: nameController,
@@ -107,10 +104,7 @@ class RegisterForm extends StatelessWidget {
             isObscured: true,
             textInputType: TextInputType.text,
             textInputFormatter: LengthLimitingTextInputFormatter(16),
-            validator: (value) => Validator.validateConfirmPassword(
-              value,
-              passwordController.text,
-            ),
+            validator: (value) => Validator.validateConfirmPassword(value, passwordController.text),
           ),
           SizedBox(height: 30.h),
           AuthToggleMessage(
@@ -119,10 +113,7 @@ class RegisterForm extends StatelessWidget {
             onTap: onLoginPressed,
           ),
           SizedBox(height: 24.h),
-          CustomElevatedButton(
-            label: 'Register',
-            onTap: onRegisterPressed,
-          ),
+          CustomElevatedButton(label: 'Register', onTap: onRegisterPressed),
           SizedBox(height: 20.h),
           const SocialSection(),
         ],

@@ -6,6 +6,7 @@ import 'survey_screen.dart';
 import 'upload_screen.dart';
 import 'anemia_survey_screen.dart';
 import 'text_prediction_screen.dart';
+import '../../clinical_guidance/view/guidance_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -138,21 +139,42 @@ class HomeScreen extends StatelessWidget {
 
             SizedBox(height: 30.h),
             Text(
-              'Recent Scans',
+              'Clinical Guidance',
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.h),
-            const InfoCard(
-              title: 'Anemia Check',
-              date: '2 days ago',
-              status: 'Normal',
-              color: Colors.green,
-            ),
-            const InfoCard(
-              title: 'Diabetes Analysis',
-              date: '5 days ago',
-              status: 'Review',
-              color: Colors.amber,
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const GuidanceDetailScreen(type: 'anemia')),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE53935),
+                      padding: EdgeInsets.symmetric(vertical: 16.h),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                    ),
+                    child: Text('Anemia', style: TextStyle(fontSize: 16.sp, color: Colors.white)),
+                  ),
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const GuidanceDetailScreen(type: 'diabetes')),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF1E88E5),
+                      padding: EdgeInsets.symmetric(vertical: 16.h),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                    ),
+                    child: Text('Diabetes', style: TextStyle(fontSize: 16.sp, color: Colors.white)),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
