@@ -5,6 +5,7 @@ import '../widgets/info_card.dart';
 import 'survey_screen.dart';
 import 'upload_screen.dart';
 import 'anemia_survey_screen.dart';
+import 'text_prediction_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

@@ -46,4 +46,13 @@ class PredictionCubit extends Cubit<PredictionState> {
       (predictionResponse) => emit(PredictionSuccess(predictionResponse.prediction)),
     );
   }
+
+  Future<void> predictFromText(String text) async {
+    emit(PredictionLoading());
+    final response = await _repository.predictFromText(text);
+    response.fold(
+      (failure) => emit(PredictionError(failure.message)),
+      (textResponse) => emit(TextPredictionSuccess(textResponse)),
+    );
+  }
 }

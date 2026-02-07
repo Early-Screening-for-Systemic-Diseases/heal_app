@@ -26,6 +26,11 @@ abstract class RegisterModule {
   Dio get anemiaSurveyDio =>
       Dio(BaseOptions(baseUrl: Constants().anemiaSurveyBaseUrl, receiveDataWhenStatusError: true));
 
+  @singleton
+  @Named('TextPredictDio')
+  Dio get textPredictDio =>
+      Dio(BaseOptions(baseUrl: Constants().textPredictBaseUrl, receiveDataWhenStatusError: true));
+
   @lazySingleton
   FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
 

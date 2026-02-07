@@ -10,7 +10,7 @@ import '../widgets/bmi_input_widget.dart';
 import '../widgets/education_selector.dart';
 import '../widgets/income_selector.dart';
 import '../widgets/slider_input_widget.dart';
-import 'upload_screen.dart';
+import 'text_prediction_screen.dart';
 
 class HealthSurveyScreen extends StatefulWidget {
   const HealthSurveyScreen({Key? key}) : super(key: key);
@@ -37,25 +37,46 @@ class _HealthSurveyScreenState extends State<HealthSurveyScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Prediction Result'),
-        content: Text('Diabetic: $prediction'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Row(
+          children: [
+            Icon(Icons.analytics, color: Colors.blueAccent, size: 24),
+            SizedBox(width: 8),
+            Text('Analysis Result', style: TextStyle(fontSize: 18)),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.blueAccent.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                'Diabetic: ${prediction.toUpperCase()}',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+            ),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const UploadScreen(
-                    category: 'Diabetes',
-                    icon: '🔬',
-                    color: Colors.blueAccent,
-                    sampleImagePath: 'assets/images/tounge.png',
-                  ),
+                  builder: (context) => const TextPredictionScreen(filterDisease: 'diabetes'),
                 ),
               );
             },
-            child: const Text('OK'),
+            child: const Text('Continue', style: TextStyle(color: Colors.blueAccent)),
           ),
         ],
       ),

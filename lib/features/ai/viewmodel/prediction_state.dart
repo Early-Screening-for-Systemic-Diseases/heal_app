@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../data/model/text_prediction_response.dart';
 
 abstract class PredictionState extends Equatable {
   @override
@@ -16,6 +17,15 @@ class PredictionSuccess extends PredictionState {
 
   @override
   List<Object?> get props => [prediction];
+}
+
+class TextPredictionSuccess extends PredictionState {
+  final TextPredictionResponse response;
+
+  TextPredictionSuccess(this.response);
+
+  @override
+  List<Object?> get props => [response];
 }
 
 class PredictionError extends PredictionState {

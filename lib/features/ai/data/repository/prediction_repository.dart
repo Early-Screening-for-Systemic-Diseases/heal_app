@@ -9,6 +9,7 @@ import '../../../auth/data/models/user_model.dart';
 import '../data_source/prediction_remote_data_source.dart';
 import '../model/prediction_response.dart';
 import '../model/health_data_model.dart';
+import '../model/text_prediction_response.dart';
 
 @lazySingleton
 class PredictionRepository {
@@ -93,6 +94,15 @@ class PredictionRepository {
         );
         await _firebaseDataSource.addAnemiaSurvey(userId, survey);
       }
+      return Right(response);
+    } on RemoteException catch (e) {
+      return Left(Failure(e.message));
+    }
+  }
+
+  Future<Either<Failure, TextPredictionResponse>> predictFromText(String text) async {
+    try {
+      final response = await _dataSource.predictFromText(text);
       return Right(response);
     } on RemoteException catch (e) {
       return Left(Failure(e.message));

@@ -4,6 +4,7 @@ import '../../../core/service/service_locator.dart';
 import '../data/model/anemia_survey_model.dart';
 import '../viewmodel/prediction_cubit.dart';
 import '../viewmodel/prediction_state.dart';
+import 'text_prediction_screen.dart';
 
 class AnemiaSurveyScreen extends StatefulWidget {
   const AnemiaSurveyScreen({Key? key}) : super(key: key);
@@ -76,8 +77,16 @@ class _AnemiaSurveyScreenState extends State<AnemiaSurveyScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK', style: TextStyle(color: Colors.redAccent)),
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TextPredictionScreen(filterDisease: 'anemia'),
+                ),
+              );
+            },
+            child: const Text('Continue', style: TextStyle(color: Colors.redAccent)),
           ),
         ],
       ),

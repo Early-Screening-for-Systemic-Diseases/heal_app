@@ -65,6 +65,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.mainDio,
       instanceName: 'MainDio',
     );
+    gh.singleton<_i361.Dio>(
+      () => registerModule.textPredictDio,
+      instanceName: 'TextPredictDio',
+    );
     gh.lazySingleton<_i911.FirebaseAuthDataSource>(
       () => _i124.FirebaseAuthDataSourceImpl(
         gh<_i59.FirebaseAuth>(),
@@ -81,6 +85,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i361.Dio>(instanceName: 'PredictDio'),
         gh<_i361.Dio>(instanceName: 'AnemiaDio'),
         gh<_i361.Dio>(instanceName: 'AnemiaSurveyDio'),
+        gh<_i361.Dio>(instanceName: 'TextPredictDio'),
       ),
     );
     gh.lazySingleton<_i977.AuthRepository>(

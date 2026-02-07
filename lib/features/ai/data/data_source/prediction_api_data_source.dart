@@ -5,6 +5,7 @@ import '../../../../core/api/api_endpoints.dart';
 import '../../../../core/error/api_error_handler.dart';
 import '../model/prediction_response.dart';
 import '../model/health_data_model.dart';
+import '../model/text_prediction_response.dart';
 import 'prediction_remote_data_source.dart';
 
 @LazySingleton(as: PredictionRemoteDataSource)
@@ -13,12 +14,14 @@ class PredictionApiDataSource implements PredictionRemoteDataSource {
   final Dio _predictDio;
   final Dio _anemiaDio;
   final Dio _anemiaSurveyDio;
+  final Dio _textPredictDio;
 
   PredictionApiDataSource(
     @Named('MainDio') this._mainDio,
     @Named('PredictDio') this._predictDio,
     @Named('AnemiaDio') this._anemiaDio,
     @Named('AnemiaSurveyDio') this._anemiaSurveyDio,
+    @Named('TextPredictDio') this._textPredictDio,
   );
 
   @override
@@ -75,6 +78,19 @@ class PredictionApiDataSource implements PredictionRemoteDataSource {
       );
       print('Anemia Survey Response: ${response.data}');
       return PredictionResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      throw ApiErrorHandler.handleDioError(e);
+    }
+  }
+
+  @override
+  Future<TextPredictionResponse> predictFromText(String text) async {
+    try {
+      final response = await _textPredictDio.post(
+        ApiEndpoints.textPredict,
+        data: {'text': text},
+      );
+      return TextPredictionResponse.fromJson(response.data);
     } on DioException catch (e) {
       throw ApiErrorHandler.handleDioError(e);
     }
